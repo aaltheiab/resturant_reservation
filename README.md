@@ -22,3 +22,8 @@ Things you may want to cover:
 * Deployment instructions
 
 * ...
+
+
+Resources Used:
+- JWT:
+    - https://medium.com/binar-academy/rails-api-jwt-authentication-a04503ea3248
