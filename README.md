@@ -26,4 +26,6 @@ Things you may want to cover:
 
 Resources Used:
 - JWT:
-    - https://medium.com/binar-academy/rails-api-jwt-authentication-a04503ea3248
+  - https://medium.com/binar-academy/rails-api-jwt-authentication-a04503ea3248
+- Docker:
+  - https://docs.docker.com/samples/rails/
