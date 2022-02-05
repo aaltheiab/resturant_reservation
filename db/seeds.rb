@@ -6,6 +6,13 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+def find_or_create_user(employee_number, role)
+  User.find_or_create_by(employee_number: employee_number) do |user|
+    user.password = '123456'
+    user.name = 'Abdullah'
+    user.role = role
+  end
+end
 
-User.create!(name: 'Abdullah', employee_number: '1000', password: '123456', role: User::ROLE_ADMIN)
-User.create!(name: 'Mohammed', employee_number: '2000', password: '123456', role: User::ROLE_EMPLOYEE)
+find_or_create_user('1000', User::ROLE_ADMIN)
+find_or_create_user('2000', User::ROLE_EMPLOYEE)
