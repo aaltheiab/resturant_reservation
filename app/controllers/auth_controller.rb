@@ -3,9 +3,9 @@ class AuthController < ApplicationController
 
   # POST /auth/login
   def login
-    @user = User.find_by(employee_number: params[:employee_number])
+    @user = User.find_by(employee_number: login_params[:employee_number])
 
-    if @user&.authenticate(params[:password])
+    if @user&.authenticate(login_params[:password])
       token = Jwt.encode(employee_number: @user.employee_number)
       render json: { token: token, exp: 24.hours.from_now.strftime("%Y-%m-%d %H:%M %p") }, status: :ok
     else
