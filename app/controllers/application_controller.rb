@@ -12,11 +12,18 @@ class ApplicationController < ActionController::Base
     header = header.split(' ').last if header
     begin
       @decoded = Jwt.decode(header)
-      @current_user = User.find(@decoded[:user_id])
+      @current_user = User.find_by_employee_number(@decoded[:employee_number])
     rescue ActiveRecord::RecordNotFound => e
       render json: { errors: e.message }, status: :unauthorized
     rescue JWT::DecodeError => e
       render json: { errors: e.message }, status: :unauthorized
     end
   end
+
+  def authorize_admin
+    unless @current_user and @current_user.admin?
+      render json: {}, status: :unauthorized
+    end
+  end
+
 end
