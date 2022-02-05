@@ -9,4 +9,6 @@ Rails.application.routes.draw do
       post :login
     end
   end
+
+  resources :tables, only: [:index, :create, :update, :destroy]
 end
