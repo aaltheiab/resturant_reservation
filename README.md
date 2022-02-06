@@ -1,34 +1,24 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+### How to Run:
+- Clone the application by simply running:
+  - ```git clone https://github.com/aaltheiab/resturant_reservation.git```
+- Install Docker if you don't have it.
+- Run docker compose:
+  - ```docker-compose up```
+- It will do the following:
+  - Install the application dependencies
+  - Create development Database
+  - Load data (seed) into the database
+  - You should be good to go
+    - You can start using the application (APIs) with postman
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
-
-Resources Used:
+### Resources Used:
 - JWT:
   - https://medium.com/binar-academy/rails-api-jwt-authentication-a04503ea3248
 - Docker:
   - https://docs.docker.com/samples/rails/
 
-Assumptions:
+### Assumptions:
+- The application is only one layer that handles 1 Resturant
 - Timezone: Riyadh
