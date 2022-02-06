@@ -29,3 +29,6 @@ Resources Used:
   - https://medium.com/binar-academy/rails-api-jwt-authentication-a04503ea3248
 - Docker:
   - https://docs.docker.com/samples/rails/
+
+Assumptions:
+- Timezone: Riyadh
