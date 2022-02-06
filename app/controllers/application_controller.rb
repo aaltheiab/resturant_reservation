@@ -3,11 +3,19 @@ class ApplicationController < ActionController::Base
   # disable forgery checks due to the application is being used as APIs
   protect_from_forgery with: :null_session
 
+  def render_json(payload, status: :ok, count: nil)
+    response = { data: payload }
+
+    response[:count] = count if count
+
+    render json: response, status: status
+  end
+
   def not_found
     render json: { error: 'not_found' }
   end
 
-  def render_error(msg, status= :bad_request)
+  def render_error(msg, status = :bad_request)
     render json: { error: msg }, status: status
   end
 
