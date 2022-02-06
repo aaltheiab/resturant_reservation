@@ -7,6 +7,10 @@ class ApplicationController < ActionController::Base
     render json: { error: 'not_found' }
   end
 
+  def render_error(msg, status= :bad_request)
+    render json: { error: msg }, status: status
+  end
+
   def authorize_request
     header = request.headers['Authorization']
     header = header.split(' ').last if header
