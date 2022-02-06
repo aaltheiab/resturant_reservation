@@ -12,6 +12,7 @@ class Reservation < ApplicationRecord
                                                  message: 'Must Be Within 1 to 12' }
   validate :validate_start_end_at, if: -> { start_at and end_at }
   scope :today, -> { where(["start_at between ? and ?", "#{Time.zone.now}", "#{Time.zone.now.end_of_day}"]) }
+  scope :by_table, -> (table_number) { joins(:table).where(table: {number: table_number}) }
 
   def self.valid_seats?(seats)
     seats = Integer(seats) rescue nil

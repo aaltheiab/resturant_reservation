@@ -4,7 +4,11 @@ class ReservationsController < ApplicationController
 
   # GET /reservations
   def index
-    reservations = Reservation.paginate(page: params[:page], per_page: 10)
+    if reservation_params[:table_number]
+      reservations = Reservation.by_table(reservation_params[:table_number]).paginate(page: params[:page], per_page: 10)
+    else
+      reservations = Reservation.paginate(page: params[:page], per_page: 10)
+    end
     render_json(reservations, count: reservations.total_entries)
   end
 
@@ -26,7 +30,7 @@ class ReservationsController < ApplicationController
   private
 
     def reservation_params
-      params.permit(:seats)
+      params.permit(:seats, :table_number)
     end
 
 end
