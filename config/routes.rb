@@ -11,4 +11,9 @@ Rails.application.routes.draw do
   end
 
   resources :tables, only: [:index, :create, :update, :destroy]
+  resources :reservations, only: [] do
+    collection do
+      get :availability
+    end
+  end
 end
