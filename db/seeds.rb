@@ -17,17 +17,31 @@ def find_or_create_table(number, seats)
 
   return if table.reservations.exists?
 
-  Reservation.create(table_id: table.id, customer_name: 'Ahmed', seats: seats,
-                     start_at: Time.zone.parse('2022-02-05 12:00'),
-                     end_at: Time.zone.parse('2022-02-05 14:00'))
 
   Reservation.create(table_id: table.id, customer_name: 'Ahmed', seats: seats,
-                     start_at: Time.zone.parse('2022-02-05 14:00'),
-                     end_at: Time.zone.parse('2022-02-05 16:00'))
+                     start_at: (Time.zone.now - 1.day).change(hour: 12, minute: 00),
+                     end_at: (Time.zone.now - 1.day).change(hour: 14, minute: 00))
 
   Reservation.create(table_id: table.id, customer_name: 'Ahmed', seats: seats,
-                     start_at: Time.zone.parse('2022-02-05 18:00'),
-                     end_at: Time.zone.parse('2022-02-05 20:00'))
+                     start_at: (Time.zone.now - 1.day).change(hour: 14, minute: 00),
+                     end_at: (Time.zone.now - 1.day).change(hour: 16, minute: 00))
+
+  Reservation.create(table_id: table.id, customer_name: 'Ahmed', seats: seats,
+                     start_at: (Time.zone.now - 1.day).change(hour: 18, minute: 00),
+                     end_at: (Time.zone.now - 1.day).change(hour: 20, minute: 00))
+
+
+  Reservation.create(table_id: table.id, customer_name: 'Ahmed', seats: seats,
+                     start_at: Time.zone.now.change(hour: 12, minute: 00),
+                     end_at: Time.zone.now.change(hour: 14, minute: 00))
+
+  Reservation.create(table_id: table.id, customer_name: 'Ahmed', seats: seats,
+                     start_at: Time.zone.now.change(hour: 14, minute: 00),
+                     end_at: Time.zone.now.change(hour: 16, minute: 00))
+
+  Reservation.create(table_id: table.id, customer_name: 'Ahmed', seats: seats,
+                     start_at: Time.zone.now.change(hour: 18, minute: 00),
+                     end_at: Time.zone.now.change(hour: 20, minute: 00))
 end
 
 find_or_create_user('1000', User::ROLE_ADMIN)

@@ -11,9 +11,10 @@ Rails.application.routes.draw do
   end
 
   resources :tables, only: [:index, :create, :update, :destroy]
-  resources :reservations, only: [] do
+  resources :reservations, only: [:index] do
     collection do
       get :availability
+      get :today
     end
   end
 end
