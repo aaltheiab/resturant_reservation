@@ -9,6 +9,16 @@ class ReservationsController < ApplicationController
     render_json(reservations, count: reservations.total_entries)
   end
 
+  # DELETE /reservations/
+  def destroy
+    if @reservation.can_be_deleted?
+      @reservation.destroy
+      render json: {}
+    else
+      render_error('Cannot Delete Past Reservations')
+    end
+  end
+
   # GET /reservations/today
   def today
     reservations = Reservation.today.paginate(page: params[:page], per_page: 10)
@@ -22,15 +32,6 @@ class ReservationsController < ApplicationController
 
     tables = Table.best_match(required_seats)
     render json: tables, status: :ok
-  end
-
-  def destroy
-    if @reservation.can_be_deleted?
-      @reservation.destroy
-      render json: {}
-    else
-      render_error('Cannot Delete Past Reservations')
-    end
   end
 
   private
