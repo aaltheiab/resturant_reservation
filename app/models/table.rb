@@ -10,6 +10,7 @@ class Table < ApplicationRecord
 
 
   def self.best_match(seats)
+    # TODO enhance algorithm to take care of the best options and return the time slots instead of table
     where(["number_of_seats >= ?", "#{seats}"]).order(:number_of_seats).first()
   end
 end
