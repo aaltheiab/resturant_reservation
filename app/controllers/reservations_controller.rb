@@ -1,6 +1,7 @@
 class ReservationsController < ApplicationController
   before_action :authorize_request
-  before_action :authorize_admin, except: [:today, :availability]
+  before_action :authorize_admin, except: [:today, :availability, :destroy]
+  before_action :set_reservation, only: [:destroy]
 
   # GET /reservations
   def index
@@ -23,7 +24,22 @@ class ReservationsController < ApplicationController
     render json: tables, status: :ok
   end
 
+  def destroy
+    if @reservation.can_be_deleted?
+      @reservation.destroy
+      render json: {}
+    else
+      render_error('Cannot Delete Past Reservations')
+    end
+  end
+
   private
+
+    def set_reservation
+      @reservation = Reservation.find_by_id!(params[:id])
+    rescue ActiveRecord::RecordNotFound
+      render json: { errors: 'Reservation not found' }, status: :not_found
+    end
 
     def reservation_params
       params.permit(:seats, :table_number)

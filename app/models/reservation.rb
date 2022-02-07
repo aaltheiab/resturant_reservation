@@ -27,6 +27,15 @@ class Reservation < ApplicationRecord
     "Invalid Number of Seats. Must be Integer between #{MIN_NUMBER_OF_SEATS} and #{MAX_NUMBER_OF_SEATS} inclusive"
   end
 
+  def can_be_deleted?
+    return false unless start_at.today? # immediate reject if reservation isn't within today
+
+    # definitely within today & still not started
+    return true if start_at >= Time.now
+
+    false # we passed start_at then it cannot be deleted
+  end
+
   private
 
     def validate_start_end_at
