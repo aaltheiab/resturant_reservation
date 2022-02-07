@@ -1,12 +1,25 @@
 class ReservationsController < ApplicationController
   before_action :authorize_request
-  before_action :authorize_admin, except: [:today, :availability, :destroy]
+  before_action :authorize_admin, except: [:today, :availability, :destroy, :create]
   before_action :set_reservation, only: [:destroy]
 
   # GET /reservations
   def index
     reservations = Reservation.filter(params.slice(:table_number, :from_date, :to_date)).paginate(page: params[:page], per_page: 10)
     render_json(reservations, count: reservations.total_entries)
+  end
+
+  # POST /reservations
+  def create
+    table = Table.find_by_number(params[:table_number])
+    return render_error('Invalid Table Number') unless table
+
+    reservation = Reservation.new(reservation_params.merge({ table: table }))
+    if reservation.save
+      render_json(reservation, status: :created)
+    else
+      render_error(reservation.errors.full_messages)
+    end
   end
 
   # DELETE /reservations/
@@ -30,6 +43,7 @@ class ReservationsController < ApplicationController
     required_seats = reservation_params[:seats]
     return render_error(Reservation.invalid_seats_msg) unless Reservation.valid_seats?(required_seats)
 
+    # TODO fix best match to handle responding with time slots
     tables = Table.best_match(required_seats)
     render json: tables, status: :ok
   end
@@ -43,7 +57,7 @@ class ReservationsController < ApplicationController
     end
 
     def reservation_params
-      params.permit(:seats, :table_number)
+      params.permit(:seats, :start_at, :end_at, :customer_name)
     end
 
 end
