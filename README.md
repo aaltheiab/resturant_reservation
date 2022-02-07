@@ -22,3 +22,16 @@
 ### Assumptions:
 - The application is only one layer that handles 1 Resturant
 - Timezone: Riyadh
+
+
+### Postman Configuration:
+- Open your postman 
+- Click on ```file``` > ```import```
+- Drag ```*.json``` files from ```./postman``` folder into the import dialog
+- You should get
+  - Collections:
+    - Users
+    - Reservations
+    - Tables
+  - Environment:
+    - ResturantReservationApp
