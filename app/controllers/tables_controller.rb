@@ -9,7 +9,7 @@ class TablesController < ApplicationController
     render json: @tables, status: :ok
   end
 
-  # POST /table
+  # POST /tables
   def create
     @table = Table.new(table_params)
     if @table.save
