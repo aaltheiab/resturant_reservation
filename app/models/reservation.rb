@@ -52,7 +52,7 @@ class Reservation < ApplicationRecord
 
       hour = start_at.hour
       unless hour.between?(MIN_HOUR_IN_24, MAX_HOUR_IN_24)
-        errors.add(:start_at, "must be within working hours #{OPENS_AT} and #{CLOSES_AT} in 24 hours format YYYY-MM-DD hh:mm")
+        errors.add(:start_at, "must be within working hours #{OPENS_AT} and #{CLOSES_AT} in 24 hours format hh:mm")
         return
       end
 
@@ -64,7 +64,7 @@ class Reservation < ApplicationRecord
 
       hour = end_at.hour
       unless hour.between?(MIN_HOUR_IN_24, MAX_HOUR_IN_24)
-        errors.add(:end_at, "must be within working hours #{OPENS_AT} and #{CLOSES_AT} in 24 hours format YYYY-MM-DD hh:mm")
+        errors.add(:end_at, "must be within working hours #{OPENS_AT} and #{CLOSES_AT} in 24 hours format hh:mm")
         return
       end
 
