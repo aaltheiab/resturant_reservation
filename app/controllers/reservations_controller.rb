@@ -14,7 +14,12 @@ class ReservationsController < ApplicationController
     table = Table.find_by_number(params[:table_number])
     return render_error('Invalid Table Number') unless table
 
-    reservation = Reservation.new(reservation_params.merge({ table: table }))
+    start_time = parse_time(params[:start_at])
+    end_time = parse_time(params[:end_at])
+
+    return render_error('Start/End time must be in this format hh:mm') unless start_time && end_time
+
+    reservation = Reservation.new(reservation_params.merge({ table: table, start_at: start_time, end_at: end_time }))
     if reservation.save
       render_json(reservation, status: :created)
     else
@@ -50,6 +55,11 @@ class ReservationsController < ApplicationController
 
   private
 
+    def parse_time(time)
+      # assuming time will be passed with hh:mm (e.g. 16:45 which is 4:45 PM)
+      Time.zone.now.change(hour: time.split(':')[0], minute: time.split(':')[1]) rescue nil
+    end
+
     def set_reservation
       @reservation = Reservation.find_by_id!(params[:id])
     rescue ActiveRecord::RecordNotFound
@@ -57,7 +67,7 @@ class ReservationsController < ApplicationController
     end
 
     def reservation_params
-      params.permit(:seats, :start_at, :end_at, :customer_name)
+      params.permit(:seats, :customer_name)
     end
 
 end

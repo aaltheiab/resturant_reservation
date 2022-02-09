@@ -5,17 +5,16 @@ class TablesController < ApplicationController
 
   # GET /tables
   def index
-    @tables = Table.all
-    render json: @tables, status: :ok
+    render json: Table.all, status: :ok
   end
 
   # POST /tables
   def create
-    @table = Table.new(table_params)
-    if @table.save
-      render json: @table, status: :created
+    table = Table.new(table_params)
+    if table.save
+      render json: table, status: :created
     else
-      render json: { errors: @table.errors.full_messages }, status: :unprocessable_entity
+      render json: { errors: table.errors.full_messages }, status: :unprocessable_entity
     end
   end
 
@@ -30,7 +29,7 @@ class TablesController < ApplicationController
 
   # DELETE /tables/{id}
   def destroy
-    # TODO prevent deleting tables with any reservation
+    return render_error('Cannot delete a table that has a reservation/s to it') if @table.reservations.exists?
     @table.destroy
   end
 

@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
-  before_action :authorize_request, except: :create
+  before_action :authorize_request
+  before_action :authorize_admin
   before_action :find_user, except: %i[create index]
 
   # GET /users
@@ -8,14 +9,9 @@ class UsersController < ApplicationController
     render json: @users, status: :ok
   end
 
-  # GET /users/{username}
-  def show
-    render json: @user, status: :ok
-  end
-
   # POST /users
   def create
-    @user = User.new(user_params)
+    @user = User.new(user_params.merge({ role: User::ROLE_EMPLOYEE }))
     if @user.save
       render json: @user, status: :created
     else
