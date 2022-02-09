@@ -37,3 +37,10 @@
     - Tables
   - Environment:
     - ResturantReservationApp
+  
+
+### Diagrams (inside ```/diagrams```):
+- Activity Diagram
+  - Shows how the reservation activity is being processed 
+- Class Diagram
+  - Shows an initial class diagram sketch.
