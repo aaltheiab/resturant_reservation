@@ -282,6 +282,38 @@
 					"body": "{\n    \"token\": \"eyJhbGciOiJIUzI1NiJ9.eyJlbXBsb3llZV9udW1iZXIiOiIyMDAwIiwiZXhwIjoxNjQ0MTQ2MzA0fQ.rQBlqGUhiSB-vBg5H5gGAWRdq3GUuTl8ageEursKl38\",\n    \"exp\": \"2022-02-06 11:18 AM\"\n}"
 				}
 			]
+		},
+		{
+			"name": "Create Employee",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Ahmed\",\n    \"password\": \"123456\",\n    \"password_confirmation\": \"123456\",\n    \"employee_number\": \"1234\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/users",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
