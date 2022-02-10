@@ -12,6 +12,11 @@
   - Load data (seed) into the database
   - You should be good to go
     - You can start using the application (APIs) with postman
+  
+### Access container:
+  - To access docker container do the following:
+    - Make sure you installed the app first (```docker-compose up```)
+    - Run ```docker-compose exec app bash``` inside the container. 
 
 ### Resources Used:
 - JWT:
@@ -44,3 +49,7 @@
   - Shows how the reservation activity is being processed 
 - Class Diagram
   - Shows an initial class diagram sketch.
+
+### Test cases:
+- You can run test cases by simply typing ```rails test``` inside the docker container (```bash```)
+
